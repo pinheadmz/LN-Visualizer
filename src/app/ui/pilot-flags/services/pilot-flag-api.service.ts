@@ -10,6 +10,7 @@ export class PilotFlagApiService {
     constructor(private http: HttpClient) {}
 
     public getApiConfig(): Observable<PilotFlags> {
-        return this.http.get<PilotFlags>('/assets/pilots.json');
+        const baseHref = document.querySelector('base')?.getAttribute('href') ?? '/';
+        return this.http.get<PilotFlags>(`${baseHref}assets/pilots.json`);
     }
 }

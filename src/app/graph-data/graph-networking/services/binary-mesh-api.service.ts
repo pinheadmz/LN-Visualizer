@@ -15,9 +15,10 @@ export class BinaryMeshApiService {
 
     public createWsSubject() {
         if (environment.production) {
-            this.subject = webSocket(
-                `${location.origin.replace('http://', 'ws://').replace('https://', 'wss://')}/api/`,
-            );
+            const baseHref = document.querySelector('base')?.getAttribute('href') ?? '/';
+            const origin = location.origin.replace('http://', 'ws://').replace('https://', 'wss://');
+            const wsUrl = `${origin}${baseHref}api/`;
+            this.subject = webSocket(wsUrl);
         } else {
             this.subject = webSocket({
                 url: `ws://127.0.0.1:5647`,

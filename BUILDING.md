@@ -25,3 +25,19 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## Warnet `lnvisualizer` image
+
+The only necessary change was setting the `<base>` tag in the HTML so the website
+can be proxied through the Warnet dashboard via caddy. Otherwise all links and
+script sources would be requested in reference to `/`.
+
+```
+docker buildx build \
+  --platform linux/amd64,linux/arm64,linux/armhf \
+  --build-arg BASE_HREF=/lnvisualizer/ \
+  -t bitcoindevproject/lnvisualizer:latest \
+  --push . \
+  -f Dockerfile-web
+```
